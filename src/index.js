@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import YTSearch from "youtube-api-search";
 import SearchBar from "./components/SearchBar";
 
-const API_KEY = "AIzaSyBOUvaqNHMacCc9V0bvbinL_woM6gW3Aew";
+const API_KEY = "Your_API_key_here";
 
 class App extends React.Component {
   constructor(props) {
