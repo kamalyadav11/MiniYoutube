@@ -9,14 +9,19 @@ class SearchBar extends Component {
     };
   }
 
-  onInputChange = e => {
-    this.setState({ text: e.target.value });
+  onInputChange = term => {
+    //onInputChange will get the typed text passed as term
+    this.setState({ text: term }); //we will set state of text to that term
+    this.props.onSearchTermChange(term); //and calls the fn from index.js as prop and pass it that term
   };
 
   render() {
     return (
-      <div>
-        <input value={this.state.text} onChange={this.onInputChange} />
+      <div className="search-bar">
+        <input
+          value={this.state.text}
+          onChange={e => this.onInputChange(e.target.value)} //on Change fn calls another fn onInputChange(with typed value)
+        />
       </div>
     );
   }

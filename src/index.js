@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import _ from "lodash";
 import YTSearch from "youtube-api-search";
 import SearchBar from "./components/SearchBar";
 import VideoList from "./components/VideoList";
@@ -16,16 +17,25 @@ class App extends React.Component {
       selectedVideo: null
     };
 
-    YTSearch({ key: API_KEY, term: "Traversy" }, videos => {
+    this.videoSearch("Traversy");
+  }
+
+  videoSearch(term) {
+    YTSearch({ key: API_KEY, term: term }, videos => {
       //This request takes some time basically a async request
       this.setState({ videos: videos, selectedVideo: videos[0] });
     });
   }
 
   render() {
+    const videoSearch = _.debounce(term => {
+      //debounce returns another function only after 300 ms
+      this.videoSearch(term);
+    }, 300);
+
     return (
       <div>
-        <SearchBar />
+        <SearchBar onSearchTermChange={videoSearch} />
         <VideoDetail video={this.state.selectedVideo} />
         <VideoList
           onVideoSelect={selectedVideo => this.setState({ selectedVideo })}
